@@ -24,8 +24,11 @@ Documentation
 -------
 You can configure this plugin using the methods listed here (this configurations are optional):
 	1. `las_seconds` => set the period to save the content in seconds (s).
+
 	2. `las_keyName` => set the key name for the LocalStorage, SessionStorage or Cookie.
+
 	3. `las_callback` => fires an function with two variables in `this` object when content is saved successfully.
+	
 Example:
 ```
 tinymce.init({
