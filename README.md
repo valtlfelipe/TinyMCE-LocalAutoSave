@@ -3,7 +3,7 @@ Local AutoSave plugin for TinyMCE 4.x
 
 Save the TinyMCE content to LocalStorage*, SessionStorage* or Cookie in your Browser to avoid losing your content in an page refresh, etc.
 
-* If your Browser supports. Cookie is the fallback.
+*If your Browser supports. Cookie is the fallback.
 
 Quick start
 -----------
