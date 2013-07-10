@@ -13,7 +13,7 @@ Quick start
 2. Unzip the `localautosave` folder in your TinyMCE plugin folder `tinymce/plugins/`.
 
 3. Initialize plugin and add it to the toolbar. Example:
-```
+```js
 tinymce.init({
 	plugins: "localautosave",
 	toolbar1: "localautosave"
@@ -32,7 +32,7 @@ You can configure this plugin using the methods listed here (those configuration
 3. `las_callback` => fires an function with two variables in `this` object when content is saved successfully.
 
 Example:
-```
+```js
 tinymce.init({
 	plugins: "localautosave",
 	toolbar1: "localautosave",
