@@ -44,3 +44,5 @@ tinymce.init({
 	}
 });
 ```
+
+Thank you to [Valerio Gentile](https://github.com/valgen) for contributing.

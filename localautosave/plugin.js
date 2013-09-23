@@ -8,7 +8,7 @@
  * Plugin info: https://github.com/valtlfelipe/TinyMCE-LocalAutoSave
  * Author: Felipe Valtl de Mello
  *
- * Version: 0.1 released 10/07/2013
+ * Version: 0.2 released 23/09/2013
  */
 
 tinymce.PluginManager.requireLangPack('localautosave');
@@ -147,7 +147,7 @@ tinymce.PluginManager.add("localautosave", function (editor, url) {
     * ########################################
     */
     var save = function() {
-        if($busy === false) {
+        if($busy === false && editor.isDirty()) {
             content = editor.getContent();
             is = editor.editorManager.is;
             var saved = false;
