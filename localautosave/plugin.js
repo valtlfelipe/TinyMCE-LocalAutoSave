@@ -48,7 +48,9 @@ tinymce.PluginManager.add("localautosave", function(editor, url) {
 	var settings = {
 		seconds : editor.getParam('las_seconds') || 5,
 		keyName : editor.getParam('las_keyName') || 'LocalAutoSave',
-		callback : editor.getParam('las_callback')
+		callback : editor.getParam('las_callback'),
+		/* las_nVersions number of versions of the text we want to store */
+		versions : editor.getParam('las_nVersions') || 0
 	};
 	var cookieFilter = new RegExp("(?:^|;\\s*)" + settings.keyName + $editorID + "=([^;]*)(?:;|$)", "i");
 
@@ -152,6 +154,28 @@ tinymce.PluginManager.add("localautosave", function(editor, url) {
 
 	/**
 	 * ########################################
+	 *     List contents available for an area
+	 * ########################################
+	 */
+	function list() {
+		var contents = [];
+		if ($storage) {
+			for (var i = 0, j = $storage.length; i < j; i++) {
+				var key = $storage.key([i]);
+				console.info(key + " --> " + settings.keyName + $editorID)
+				if (key.indexOf(settings.keyName + $editorID) == 0) {
+					contents.push($storage.getItem(key));
+				}
+
+			};
+		} else {
+			//TODO: "manage cookie mode"
+		}
+		return contents;
+	}
+
+	/**
+	 * ########################################
 	 *     Save content action
 	 * ########################################
 	 */
@@ -224,6 +248,8 @@ tinymce.PluginManager.add("localautosave", function(editor, url) {
 					content = decodeCookie(m[1]);
 				}
 			}
+			var contents = list();
+
 			if (!is(content, "string")) {
 				editor.windowManager.alert('localautosave.noContent');
 			} else {
@@ -231,12 +257,27 @@ tinymce.PluginManager.add("localautosave", function(editor, url) {
 					editor.setContent(content);
 					$busy = false;
 				} else {
-					editor.windowManager.confirm('localautosave.ifRestore', function(ok) {
-						if (ok) {
-							editor.setContent(content);
-						}
-						$busy = false;
-					}, this);
+					if (contents.length > 0) {
+						editor.windowManager.open({
+							width : 380,
+							height : 240,
+							scrollbars : true,
+							title : 'localautosave.chooseVersion',
+							items : {
+								type : "html",
+								multiline : true,
+								renderHtml : '<div>sss</div> <div>ssfffs</div>'
+							}
+						});
+					} else {
+						editor.windowManager.confirm('localautosave.ifRestore', function(ok) {
+							if (ok) {
+								editor.setContent(content);
+							}
+							$busy = false;
+						}, this);
+					}
+
 				}
 			}
 		} catch (error) {
