@@ -29,6 +29,8 @@ tinymce.PluginManager.add("localautosave", function(editor, url) {
 
 	var $busy = false;
 
+	var $storage = localStorage;
+
 	var cookieEncodeKey = {
 		"%" : "%1",
 		"&" : "%2",
@@ -57,23 +59,23 @@ tinymce.PluginManager.add("localautosave", function(editor, url) {
 	 * ########################################
 	 */
 	try {
-		localStorage.setItem('LASTest', "OK");
-
-		if (localStorage.getItem('LASTest') === "OK") {
-			localStorage.removeItem('LASTest');
+		$storage.setItem('LASTest', "OK");
+		if ($storage.getItem('LASTest') === "OK") {
+			$storage.removeItem('LASTest');
 			$useLocalStorage = true;
 		}
 	} catch (error) {
 
 		try {
-			sessionStorage.setItem('LASTest', "OK");
+			$storage = sessionStorage;
+			$storage.setItem('LASTest', "OK");
 
-			if (sessionStorage.getItem('LASTest') === "OK") {
-				sessionStorage.removeItem('LASTest');
+			if ($storage.getItem('LASTest') === "OK") {
+				$storage.removeItem('LASTest');
 				$useSessionStorage = true;
 			}
 		} catch (error) {
-
+			$storage = null;
 		}
 	}
 
@@ -90,7 +92,7 @@ tinymce.PluginManager.add("localautosave", function(editor, url) {
 			restore();
 		}
 	});
-	
+
 	/**
 	 * ########################################
 	 *     Encodes special characters to
@@ -162,14 +164,11 @@ tinymce.PluginManager.add("localautosave", function(editor, url) {
 				now = new Date();
 				exp = new Date(now.getTime() + (20 * 60 * 1000));
 				try {
-					if ($useLocalStorage) {
-						localStorage.setItem(settings.keyName + $editorID, exp.toString() + "," + encodeStorage(content));
-					} else if ($useSessionStorage) {
-						sessionStorage.setItem(settings.keyName + $editorID, exp.toString() + "," + encodeStorage(content));
+					if ($storage) {
+						$storage.setItem(settings.keyName + $editorID, exp.toString() + "," + encodeStorage(content));
 					} else {
 						a = settings.keyName + $editorID + "=";
 						b = "; expires=" + exp.toUTCString();
-
 						document.cookie = a + encodeCookie(content).slice(0, 4096 - a.length - b.length) + b;
 					}
 					saved = true;
@@ -207,8 +206,8 @@ tinymce.PluginManager.add("localautosave", function(editor, url) {
 		var content = null, is = editor.editorManager.is;
 		$busy = true;
 		try {
-			if ($useLocalStorage || $useSessionStorage) {
-				content = (( $useLocalStorage ? localStorage.getItem(settings.keyName + $editorID) : sessionStorage.getItem(settings.keyName + $editorID)) || "").toString();
+			if ($storage) {
+				content = ($storage.getItem(settings.keyName + $editorID) || "").toString();
 				i = content.indexOf(",");
 
 				if (i == -1) {
