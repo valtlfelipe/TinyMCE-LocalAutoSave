@@ -180,7 +180,9 @@ tinymce.PluginManager.add("localautosave", function(editor, url) {
 					obj = new Object();
 					obj.content = content;
 					obj.time = now.getTime();
-					settings.callback.call(obj);
+					if (settings.callback) {
+						settings.callback.call(obj);
+					}
 					var btn = getButtonByName('localautosave');
 					$(btn).find('i').replaceWith('<i class="mce-ico mce-i-none" style="background: url(\'' + url + '/img/progress.gif\') no-repeat;"></i>');
 					var t = setTimeout(function() {
