@@ -9,6 +9,11 @@
  * Author: Felipe Valtl de Mello
  *
  * Version: 0.2 released 23/09/2013
+ * 
+ * 
+ * Modified by Diego Valerio Camarda 
+ * https://github.com/dvcama/TinyMCE-LocalAutoSave
+ * 
  */
 
 tinymce.PluginManager.requireLangPack('localautosave');
@@ -48,11 +53,11 @@ tinymce.PluginManager.add("localautosave", function(editor, url) {
 		"%5" : "<"
 	};
 	var settings = {
-		seconds : editor.getParam('las_seconds') || 5,
+		seconds : editor.getParam('las_seconds') || 6,
 		keyName : editor.getParam('las_keyName') || 'LocalAutoSave',
 		callback : editor.getParam('las_callback'),
 		/* las_nVersions number of versions of the text we want to store */
-		versions : editor.getParam('las_nVersions') || 0
+		versions : editor.getParam('las_nVersions') || 15
 	};
 	var cookieFilter = new RegExp("(?:^|;\\s*)" + settings.keyName + $editorID + "=([^;]*)(?:;|$)", "i");
 
@@ -178,13 +183,15 @@ tinymce.PluginManager.add("localautosave", function(editor, url) {
 		}
 		contents.sort();
 		return contents.reverse();
-	}/**
+	}
+
+	/**
 
 	 * ########################################
-	 *     List contents available for an area
+	 *     List keys available for an area
 	 * ########################################
 	 */
-	function listKeys() {
+	function listKeys(excedingQuota) {
 		var keys = [];
 		if ($storage) {
 			for (var i = 0, j = $storage.length; i < j; i++) {
@@ -196,13 +203,26 @@ tinymce.PluginManager.add("localautosave", function(editor, url) {
 		} else {
 			//TODO: "manage cookie mode"
 		}
-		keys.sort();
-		return keys.reverse();
+		keys.sort(function(a, b) {
+			return $storage.getItem(a) > $storage.getItem(b);
+		});
+		keys.reverse();
+		if (excedingQuota > 0) {
+			/* return only keys that are exceeding the quota (las_nVersions)*/
+			var tmpKeys = keys;
+			keys = [];
+			if (excedingQuota < tmpKeys.length) {
+				for (var i = excedingQuota, j = tmpKeys.length; i < j; i++) {
+					keys.push(tmpKeys[i]);
+				};
+			}
+		}
+		return keys;
 	}
 
 	/**
 	 * ########################################
-	 *     remove contents of an array
+	 *     remove contents in array
 	 * ########################################
 	 */
 	function clearAll(keys) {
@@ -237,7 +257,7 @@ tinymce.PluginManager.add("localautosave", function(editor, url) {
 					try {
 						if ($storage) {
 							if (!$storage.getItem(key)) {
-								$storage.setItem(key, now.toISOString() + "," + encodeStorage(content));
+								$storage.setItem(key, now.toISOString().replace(/T/g, ' ').replace(/\.[0-9]*Z$/g, '') + "," + encodeStorage(content));
 							}
 						} else {
 							/*TODO: manage cookie mode*/
@@ -267,9 +287,13 @@ tinymce.PluginManager.add("localautosave", function(editor, url) {
 				if (saved) {
 					$lastKey = key;
 				}
+				if (settings.versions > 0) {
+					clearAll(listKeys(settings.versions));
+				}
 
 			}
 		}
+
 		$busy = false;
 	};
 	/**
@@ -287,12 +311,13 @@ tinymce.PluginManager.add("localautosave", function(editor, url) {
 	function restore() {
 		var content = null, is = editor.editorManager.is;
 		/* saving last version */
+		if (editor.getContent().replace(/<\/?[a-z]+[^>]*>/gi, '').length > 0) {
+			save();
+		}
 		$busy = true;
 		try {
-
 			if ($storage) {
 
-				/* Getting the list of contents saved for this textarea */
 				var contents = list();
 
 				if (contents.length === 0) {
@@ -302,16 +327,13 @@ tinymce.PluginManager.add("localautosave", function(editor, url) {
 						editor.setContent(decodeStorage(contents[0].substring(contents[0].indexOf(",") + 1)));
 						$busy = false;
 					} else {
-
 						var divContent = "<div class='localautosave_cnt' id=\"" + $editorID + "-popup-localautosave\"><ul id='localautosave_list'>";
 						for (var i = 0, j = contents.length; i < j; i++) {
 							var aContent = decodeStorage(contents[i].substring(contents[i].indexOf(",") + 1));
-							var aKey = contents[i].substring(0, contents[i].indexOf(",")).replace(/T/g, ' ').replace(/\.[0-9]*$/g, '');
-
+							var aKey = contents[i].substring(0, contents[i].indexOf(","));
 							divContent += "<li>" + aKey + " <tt>(" + aContent.replace(/<\/?[a-z]+[^>]*>/gi, '').length + " " + tinymce.translate('localautosave.chars') + ")</tt><span>" + aContent + "</span></li>";
 						};
 						divContent += "</ul></div>";
-
 						editor.windowManager.open({
 							width : 380,
 							height : 240,
@@ -334,13 +356,11 @@ tinymce.PluginManager.add("localautosave", function(editor, url) {
 							tinyMCE.activeEditor.setContent($(this).children('span').html());
 							tinyMCE.activeEditor.windowManager.close();
 						});
-
 					}
 				}
 			} else {
 				/* TODO: manage cookie mode*/
 				m = cookieFilter.exec(document.cookie);
-
 				if (m) {
 					content = decodeCookie(m[1]);
 				}
