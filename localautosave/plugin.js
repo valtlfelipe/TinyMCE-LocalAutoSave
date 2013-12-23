@@ -9,11 +9,11 @@
  * Author: Felipe Valtl de Mello
  *
  * Version: 0.2 released 23/09/2013
- * 
- * 
- * Modified by Diego Valerio Camarda 
+ *
+ *
+ * Modified by Diego Valerio Camarda
  * https://github.com/dvcama/TinyMCE-LocalAutoSave
- * 
+ *
  */
 
 tinymce.PluginManager.requireLangPack('localautosave');
@@ -352,6 +352,7 @@ tinymce.PluginManager.add("localautosave", function(editor, url) {
 							}]
 						});
 						var choose = $("#" + $editorID + "-popup-localautosave").find('li');
+						$('.localautosave_cnt:first').height($('.localautosave_cnt:first').parent().height() - 40);
 						choose.click(function() {
 							tinyMCE.activeEditor.setContent($(this).children('span').html());
 							tinyMCE.activeEditor.windowManager.close();
@@ -415,12 +416,11 @@ tinymce.PluginManager.add("localautosave", function(editor, url) {
 	}
 
 	function setStyle() {
-		var style = ".mce-container .localautosave_cnt , .mce-container * .localautosave_cnt , .mce-widget .localautosave_cnt , .mce-widget * .localautosave_cnt {padding:20px;} ";
+		var style = ".mce-container .localautosave_cnt , .mce-container * .localautosave_cnt , .mce-widget .localautosave_cnt , .mce-widget * .localautosave_cnt {padding:20px;overflow: auto;} ";
 		style += "#localautosave_list li {list-style:none;cursor:pointer;line-height:30px;border-bottom:1px solid #ddd;} ";
 		style += "#localautosave_list li:hover {background-color:#ddd;} ";
 		style += "#localautosave_list li span{display:none;} ";
 		style += "#localautosave_list li tt{float:right;line-height: 30px;} ";
-		style += "body .mce-container-body.mce-abs-layout {overflow: auto;} ";
 		$('head').append("<style type='text/css'>" + style + "</style>");
 	}
 
