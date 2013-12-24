@@ -31,6 +31,8 @@ You can configure this plugin using the methods listed here (those configuration
 
 3. `las_callback` => fires an function with two variables in `this` object when content is saved successfully.
 
+4. `las_nVersions` => number of versions of content you want to store (default 15, set 0 to disable) 
+
 Example:
 ```js
 tinymce.init({
