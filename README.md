@@ -46,3 +46,6 @@ tinymce.init({
 ```
 
 Thank you to [Valerio Gentile](https://github.com/valgen) for contributing.
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/valtlfelipe/tinymce-localautosave/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
