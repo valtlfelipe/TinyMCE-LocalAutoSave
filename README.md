@@ -4,6 +4,7 @@ Local AutoSave plugin for TinyMCE 4.x
 Save the TinyMCE (v4.x) content to LocalStorage* or SessionStorage* in your Browser to avoid losing your content in an page refresh, etc.
 
 *Only if Browser supports webstorage. [See a list of Supported Browsers](http://www.html5rocks.com/features/storage#support).
+
 *Cookie support has been disabled for now.
 
 Demo
