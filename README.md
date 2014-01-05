@@ -31,6 +31,7 @@ Translation
 -----------
 
 Currently available translations: `en`, `it`, `pt_BR`.
+
 If you have translated this plugin, please create a pull request or send me a message so I can add your translation to this repository. Thanks!
 
 Documentation
