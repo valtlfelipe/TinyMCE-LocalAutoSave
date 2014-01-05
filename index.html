@@ -11,6 +11,19 @@
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+	<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+	<script src="http://tinymce.cachefly.net/4.0/tinymce.min.js"></script>
+	<script>
+		tinymce.init({
+			plugins : "localautosave",
+			toolbar1 : "localautosave",
+			selector : "#demoTextArea",
+			las_nVersions: 3,
+			external_plugins : {
+				"localautosave" : "https://raw.github.com/valtlfelipe/TinyMCE-LocalAutoSave/master/localautosave/plugin.min.js"
+			}
+		});
+	</script>
   </head>
   <body>
     <div class="wrapper">
@@ -31,9 +44,16 @@
         <h1>
 <a name="local-autosave-plugin-for-tinymce-4x" class="anchor" href="#local-autosave-plugin-for-tinymce-4x"><span class="octicon octicon-link"></span></a>Local AutoSave plugin for TinyMCE 4.x</h1>
 
-<p>Save the TinyMCE (v4.x) content to LocalStorage*, SessionStorage* or Cookie in your Browser to avoid losing your content in an page refresh, etc.</p>
+<p>Save the TinyMCE (v4.x) content to LocalStorage* or SessionStorage* in your Browser to avoid losing your content in an page refresh, etc.</p>
 
-<p>*If your Browser supports. Cookie is the fallback.</p>
+<ul>
+<li>Only if Browser supports webstorage. <a href="http://www.html5rocks.com/features/storage#support">See a list of Supported Browsers</a>.</li>
+<li>Cookie support has been disabled for now.</li>
+</ul><h2>
+<a name="demo" class="anchor" href="#demo"><span class="octicon octicon-link"></span></a>Demo</h2>
+
+<textarea id="demoTextArea"></textarea>
+<br>
 
 <h2>
 <a name="quick-start" class="anchor" href="#quick-start"><span class="octicon octicon-link"></span></a>Quick start</h2>
@@ -51,20 +71,28 @@
 </pre></div>
 </li>
 </ol><h2>
+<a name="translation" class="anchor" href="#translation"><span class="octicon octicon-link"></span></a>Translation</h2>
+
+<p>Currently available translations: <code>en</code>, <code>it</code>, <code>pt_BR</code>.
+If you have translated this plugin, please create a pull request or send me a message so I can add your translation to this repository. Thanks!</p>
+
+<h2>
 <a name="documentation" class="anchor" href="#documentation"><span class="octicon octicon-link"></span></a>Documentation</h2>
 
 <p>You can configure this plugin using the methods listed here (those configurations are optional):</p>
 
 <ol>
-<li><p><code>las_seconds</code> =&gt; set the period to save the content in seconds (s).</p></li>
-<li><p><code>las_keyName</code> =&gt; set the key name for the LocalStorage, SessionStorage or Cookie.</p></li>
+<li><p><code>las_seconds</code> =&gt; set the period to save the content in seconds (default 6).</p></li>
+<li><p><code>las_keyName</code> =&gt; set the key name for the LocalStorage, SessionStorage.</p></li>
 <li><p><code>las_callback</code> =&gt; fires an function with two variables in <code>this</code> object when content is saved successfully.</p></li>
+<li><p><code>las_nVersions</code> =&gt; number of versions of content you want to store (default 15, set 0 to disable) </p></li>
 </ol><p>Example:</p>
 
 <div class="highlight highlight-js"><pre><span class="nx">tinymce</span><span class="p">.</span><span class="nx">init</span><span class="p">({</span>
     <span class="nx">plugins</span><span class="o">:</span> <span class="s2">"localautosave"</span><span class="p">,</span>
     <span class="nx">toolbar1</span><span class="o">:</span> <span class="s2">"localautosave"</span><span class="p">,</span>
     <span class="nx">las_seconds</span><span class="o">:</span> <span class="mi">15</span><span class="p">,</span>
+    <span class="nx">las_nVersions</span><span class="o">:</span> <span class="mi">15</span><span class="p">,</span>
     <span class="nx">las_keyName</span><span class="o">:</span> <span class="s2">"LocalAutoSave"</span><span class="p">,</span>
     <span class="nx">las_callback</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
         <span class="kd">var</span> <span class="nx">content</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">content</span><span class="p">;</span> <span class="c1">//content saved</span>
@@ -73,7 +101,7 @@
 <span class="p">});</span>
 </pre></div>
 
-<p>Thank you to <a href="https://github.com/valgen">Valerio Gentile</a> for contributing.</p>
+<p>Thank you to <a href="https://github.com/dvcama">Valerio Gentile</a> for contributing.</p>
 
 <p><a href="https://bitdeli.com/free" title="Bitdeli Badge"><img src="https://d2weczhvl823v0.cloudfront.net/valtlfelipe/tinymce-localautosave/trend.png" alt="Bitdeli Badge"></a></p>
       </section>
