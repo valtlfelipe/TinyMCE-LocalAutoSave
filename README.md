@@ -65,3 +65,5 @@ tinymce.init({
 Thank you to [Valerio Gentile](https://github.com/dvcama) for contributing.
 
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/valtlfelipe/tinymce-localautosave/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
+[![Analytics](https://ga-beacon.appspot.com/UA-10083241-13/TinyMCE-LocalAutoSave/readme?pixel)](https://github.com/igrigorik/ga-beacon)
