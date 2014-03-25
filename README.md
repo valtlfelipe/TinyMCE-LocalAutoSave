@@ -30,7 +30,7 @@ tinymce.init({
 Translation
 -----------
 
-Currently available translations: `en`, `it`, `pt_BR`.
+Currently available translations: `en`, `es`, `it`, `pt_BR`.
 
 If you have translated this plugin, please create a pull request or send me a message so I can add your translation to this repository. Thanks!
 
@@ -62,7 +62,7 @@ tinymce.init({
 });
 ```
 
-Thank you to [Valerio Gentile](https://github.com/dvcama) for contributing.
+Thank you to [Valerio Gentile](https://github.com/dvcama) and [gastonsanguinetti](https://github.com/gastonsanguinetti) for contributing.
 
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/valtlfelipe/tinymce-localautosave/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
