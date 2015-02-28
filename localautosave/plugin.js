@@ -2,13 +2,13 @@
  * LAS - Local Auto Save Plugin
  * localautosave/plugin.min.js
  *
- * Released under Creative Commons Attribution 3.0 Unported License
+ * Released under The MIT License (MIT)
  *
  * License: http://creativecommons.org/licenses/by/3.0/
  * Plugin info: http://valtlfelipe.github.io/TinyMCE-LocalAutoSave/
  * Author: Felipe Valtl de Mello
  *
- * Version: 0.3 released 05/01/2014
+ * Version: 0.4 released 28/02/2015
  *
  *
  * Modified by Diego Valerio Camarda
@@ -88,6 +88,34 @@ tinymce.PluginManager.add("localautosave", function(editor, url) {
 			$storage = null;
 		}
 	}
+
+	/**
+	 * ########################################
+	 *     Fix .toISOString() in IE8
+	 *     http://stackoverflow.com/a/12907891
+	 * ########################################
+	 */
+	 if ( !Date.prototype.toISOString ) {         
+	 	(function() {         
+	 		function pad(number) {
+	 			var r = String(number);
+	 			if ( r.length === 1 ) {
+	 				r = '0' + r;
+	 			}
+	 			return r;
+	 		}      
+	 		Date.prototype.toISOString = function() {
+	 			return this.getUTCFullYear()
+	 			+ '-' + pad( this.getUTCMonth() + 1 )
+	 			+ '-' + pad( this.getUTCDate() )
+	 			+ 'T' + pad( this.getUTCHours() )
+	 			+ ':' + pad( this.getUTCMinutes() )
+	 			+ ':' + pad( this.getUTCSeconds() )
+	 			+ '.' + String( (this.getUTCMilliseconds()/1000).toFixed(3) ).slice( 2, 5 )
+	 			+ 'Z';
+	 		};       
+	 	}() );
+	 }
 
 	/**
 	 * ########################################
@@ -253,7 +281,6 @@ tinymce.PluginManager.add("localautosave", function(editor, url) {
 				if (settings.versions > 0) {
 					key = key + md5(content);
 				}
-				console.log($editorID);
 				if (settings.versions === 0 || $lastKey != key) {
 					try {
 						if ($storage) {
@@ -280,8 +307,9 @@ tinymce.PluginManager.add("localautosave", function(editor, url) {
 						}
 						var btn = getButtonByName('localautosave');
 						$(btn).find('i').replaceWith('<i class="mce-ico mce-i-none" style="background: url(\'' + url + '/img/progress.gif\') no-repeat;"></i>');
+						//$(btn).find('i').replaceWith('<i class="mce-ico mce-i-refresh"></i>');
 						var t = setTimeout(function() {
-							$(btn).find('i').replaceWith('<i class="mce-ico mce-i-restoredraft"></i>');
+							$(btn).find('i').replaceWith('<i class="mce-ico mce-i-restoredraft fa-spin"></i>');
 						}, 2000);
 					}
 				}
@@ -332,7 +360,7 @@ tinymce.PluginManager.add("localautosave", function(editor, url) {
 						for (var i = 0, j = contents.length; i < j; i++) {
 							var aContent = decodeStorage(contents[i].substring(contents[i].indexOf(",") + 1));
 							var aKey = contents[i].substring(0, contents[i].indexOf(","));
-							divContent += "<li>" + aKey + " <tt>(" + aContent.replace(/<\/?[a-z]+[^>]*>/gi, '').length + " " + tinymce.translate('localautosave.chars') + ")</tt><span>" + aContent + "</span></li>";
+							divContent += "<li class='clearfix'><label>" + aKey + "</label> <tt>(" + aContent.replace(/<\/?[a-z]+[^>]*>/gi, '').length + " " + tinymce.translate('localautosave.chars') + ")</tt><span>" + aContent + "</span></li>";
 						};
 						divContent += "</ul></div>";
 						editor.windowManager.open({
@@ -422,6 +450,8 @@ tinymce.PluginManager.add("localautosave", function(editor, url) {
 		style += "#localautosave_list li:hover {background-color:#ddd;} ";
 		style += "#localautosave_list li span{display:none;} ";
 		style += "#localautosave_list li tt{float:right;line-height: 30px;} ";
+		style += "#localautosave_list li label{float:left;line-height: 30px;} ";
+		style += "#localautosave_list .clearfix:before, #localautosave_list .clearfix:after { display: table; content: \" \"; } #localautosave_list .clearfix:after { clear: both; }";
 		$('head').append("<style type='text/css'>" + style + "</style>");
 	}
 

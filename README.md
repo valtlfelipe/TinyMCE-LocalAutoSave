@@ -62,8 +62,10 @@ tinymce.init({
 });
 ```
 
-Thank you to [Valerio Gentile](https://github.com/dvcama), [gastonsanguinetti](https://github.com/gastonsanguinetti) and [Quentin Delettre](https://github.com/qdelettre) for contributing.
+## License
 
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/valtlfelipe/tinymce-localautosave/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+[View the License](https://github.com/valtlfelipe/TinyMCE-LocalAutoSave/blob/master/LICENSE.md) for this repository.
+
+Thank you to [Valerio Gentile](https://github.com/dvcama), [gastonsanguinetti](https://github.com/gastonsanguinetti) and [Quentin Delettre](https://github.com/qdelettre) for contributing.
 
 [![Analytics](https://ga-beacon.appspot.com/UA-10083241-13/TinyMCE-LocalAutoSave/readme?pixel)](https://github.com/igrigorik/ga-beacon)
