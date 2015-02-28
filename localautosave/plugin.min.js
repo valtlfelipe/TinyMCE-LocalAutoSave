@@ -8,7 +8,7 @@
  * Plugin info: http://valtlfelipe.github.io/TinyMCE-LocalAutoSave/
  * Author: Felipe Valtl de Mello
  *
- * Version: 0.4 released 28/02/2015
+ * Version: 0.4.1 released 28/02/2015
  *
  *
  * Modified by Diego Valerio Camarda
