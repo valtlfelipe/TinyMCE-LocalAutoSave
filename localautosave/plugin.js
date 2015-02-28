@@ -4,7 +4,7 @@
  *
  * Released under The MIT License (MIT)
  *
- * License: http://creativecommons.org/licenses/by/3.0/
+ * License: https://github.com/valtlfelipe/TinyMCE-LocalAutoSave/blob/master/LICENSE.md
  * Plugin info: http://valtlfelipe.github.io/TinyMCE-LocalAutoSave/
  * Author: Felipe Valtl de Mello
  *
