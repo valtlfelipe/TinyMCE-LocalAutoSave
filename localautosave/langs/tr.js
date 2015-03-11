@@ -1,4 +1,4 @@
-tinyMCE.addI18n('tr.localautosave', {
+tinyMCE.addI18n('tr', {
     'localautosave.restoreContent' : 'İçeriği geri yükle',
     'localautosave.chooseVersion' : 'Geri yüklemek istediğiniz versiyonu seçiniz',
     'localautosave.chars' : 'karakter',

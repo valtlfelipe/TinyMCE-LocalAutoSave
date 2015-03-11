@@ -1,4 +1,4 @@
-tinyMCE.addI18n('it.localautosave', {
+tinyMCE.addI18n('it', {
 	'localautosave.restoreContent' : 'Ripristina il contenuto',
 	'localautosave.chooseVersion' : 'Scegli tra le versioni disponibili',
 	'localautosave.chars' : 'caratteri',
