@@ -30,7 +30,7 @@ tinymce.init({
 Translation
 -----------
 
-Currently available translations: `en`, `es`, `fr`, `it`, `pt_BR`.
+Currently available translations: `en`, `es`, `fr`, `it`, `pt_BR`, `tr`.
 
 If you have translated this plugin, please create a pull request or send me a message so I can add your translation to this repository. Thanks!
 
