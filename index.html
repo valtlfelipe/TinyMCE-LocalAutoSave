@@ -12,7 +12,7 @@
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 	<script src="//code.jquery.com/jquery-1.10.1.min.js"></script>
-	<script src="//tinymce.cachefly.net/4.1/tinymce.min.js"></script>
+	<script src="//tinymce.cachefly.net/4.2/tinymce.min.js"></script>
 	<script>
 		tinymce.init({
 			plugins : "localautosave",
@@ -20,7 +20,7 @@
 			selector : "#demoTextArea",
 			las_nVersions: 3,
 			external_plugins : {
-				"localautosave" : "https://cdn.rawgit.com/valtlfelipe/TinyMCE-LocalAutoSave/0.4.1/localautosave/plugin.min.js"
+				"localautosave" : "https://cdn.rawgit.com/valtlfelipe/TinyMCE-LocalAutoSave/0.4.2/localautosave/plugin.min.js"
 			}
 		});
 	</script>
@@ -35,8 +35,8 @@
 
 
         <ul>
-          <li><a href="https://github.com/valtlfelipe/TinyMCE-LocalAutoSave/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/valtlfelipe/TinyMCE-LocalAutoSave/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/valtlfelipe/TinyMCE-LocalAutoSave/releases">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/valtlfelipe/TinyMCE-LocalAutoSave/releases">Download <strong>TAR Ball</strong></a></li>
           <li><a href="https://github.com/valtlfelipe/TinyMCE-LocalAutoSave">View On <strong>GitHub</strong></a></li>
         </ul>
       </header>
@@ -44,7 +44,7 @@
         <h1>
 <a name="local-autosave-plugin-for-tinymce-4x" class="anchor" href="#local-autosave-plugin-for-tinymce-4x"><span class="octicon octicon-link"></span></a>Local AutoSave plugin for TinyMCE 4.x</h1>
 
-<p>Save the TinyMCE (v4.x) content to LocalStorage* or SessionStorage* in your Browser to avoid losing your content in an page refresh, etc.</p>
+<p>Save the TinyMCE (v4.x) content to LocalStorage* or SessionStorage* in your Browser to avoid losing your content on a page refresh, etc.</p>
 
 <p>*Only if Browser supports webstorage. <a href="http://caniuse.com/namevalue-storage">See a list of Supported Browsers</a>.
 <br>
@@ -59,6 +59,18 @@
 <h2>
 <a name="quick-start" class="anchor" href="#quick-start"><span class="octicon octicon-link"></span></a>Quick start</h2>
 
+<p>Install with Bower:</p>
+<pre><code>bower install tinymce-localautosave
+</code></pre>
+<p>And use:</p>
+<div class="highlight highlight-js"><pre>tinymce.<span class="pl-c1">init</span>({
+    plugins<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>localautosave<span class="pl-pds">"</span></span>,
+    toolbar1<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>localautosave<span class="pl-pds">"</span></span>,
+    external_plugins <span class="pl-k">:</span> {
+        <span class="pl-s"><span class="pl-pds">"</span>localautosave<span class="pl-pds">"</span></span> <span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>bower_components/tinymce-localautosave/localautosave/plugin.min.js<span class="pl-pds">"</span></span>
+    }
+});</pre></div>
+<p>Or download it manually:</p>
 <ol>
 <li><p><a href="https://github.com/valtlfelipe/TinyMCE-LocalAutoSave/zipball/master">Download a copy (.zip)</a>.</p></li>
 <li><p>Unzip the <code>localautosave</code> folder in your TinyMCE plugin folder <code>tinymce/plugins/</code>.</p></li>
