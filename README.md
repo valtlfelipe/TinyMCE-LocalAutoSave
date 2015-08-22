@@ -32,7 +32,7 @@ tinymce.init({
 
 Or download it manually:
 
-1. [Download a copy (.zip)](https://github.com/valtlfelipe/TinyMCE-LocalAutoSave/zipball/master).
+1. [Download a copy (.zip)](https://github.com/valtlfelipe/TinyMCE-LocalAutoSave/releases).
 
 2. Unzip the `localautosave` folder in your TinyMCE plugin folder `tinymce/plugins/`.
 
