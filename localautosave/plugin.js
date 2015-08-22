@@ -8,7 +8,7 @@
  * Plugin info: http://valtlfelipe.github.io/TinyMCE-LocalAutoSave/
  * Author: Felipe Valtl de Mello
  *
- * Version: 0.4.1 released 28/02/2015
+ * Version: 0.4.2 released 22/08/2015
  *
  *
  * Modified by Diego Valerio Camarda
@@ -88,34 +88,6 @@ tinymce.PluginManager.add("localautosave", function(editor, url) {
 			$storage = null;
 		}
 	}
-
-	/**
-	 * ########################################
-	 *     Fix .toISOString() in IE8
-	 *     http://stackoverflow.com/a/12907891
-	 * ########################################
-	 */
-	 if ( !Date.prototype.toISOString ) {         
-	 	(function() {         
-	 		function pad(number) {
-	 			var r = String(number);
-	 			if ( r.length === 1 ) {
-	 				r = '0' + r;
-	 			}
-	 			return r;
-	 		}      
-	 		Date.prototype.toISOString = function() {
-	 			return this.getUTCFullYear()
-	 			+ '-' + pad( this.getUTCMonth() + 1 )
-	 			+ '-' + pad( this.getUTCDate() )
-	 			+ 'T' + pad( this.getUTCHours() )
-	 			+ ':' + pad( this.getUTCMinutes() )
-	 			+ ':' + pad( this.getUTCSeconds() )
-	 			+ '.' + String( (this.getUTCMilliseconds()/1000).toFixed(3) ).slice( 2, 5 )
-	 			+ 'Z';
-	 		};       
-	 	}() );
-	 }
 
 	/**
 	 * ########################################
@@ -265,6 +237,38 @@ tinymce.PluginManager.add("localautosave", function(editor, url) {
 
 	/**
 	 * ########################################
+	 *     get formated date for restore
+	 * ########################################
+	 */
+	function getFormatedDate(date) {
+		var yyyy = now.getFullYear(),
+			mm = (now.getMonth()+1),
+			dd = now.getDate(),
+			hh = now.getHours(),
+			min = now.getMinutes(),
+			ss = now.getSeconds();
+
+		if(mm < 10) {
+			mm = "0"+mm;
+		}
+		if(dd < 10) {
+			dd = "0"+dd;
+		}
+		if(hh < 10) {
+			hh = "0"+hh;
+		}
+		if(min < 10) {
+			min = "0"+min;
+		}
+		if(ss < 10) {
+			ss = "0"+ss;
+		}
+
+		return yyyy+"-"+mm+"-"+dd+" "+hh+":"+min+":"+ss;
+	}
+
+	/**
+	 * ########################################
 	 *     Save content action
 	 * ########################################
 	 */
@@ -285,7 +289,7 @@ tinymce.PluginManager.add("localautosave", function(editor, url) {
 					try {
 						if ($storage) {
 							if (!$storage.getItem(key)) {
-								$storage.setItem(key, now.toISOString().replace(/T/g, ' ').replace(/\.[0-9]*Z$/g, '') + "," + encodeStorage(content));
+								$storage.setItem(key, getFormatedDate(now) + "," + encodeStorage(content));
 							}
 						} else {
 							/*TODO: manage cookie mode*/
@@ -295,7 +299,7 @@ tinymce.PluginManager.add("localautosave", function(editor, url) {
 						}
 						saved = true;
 					} catch (error) {
-						console.log(error);
+						console.error(error);
 					}
 
 					if (saved) {
@@ -306,10 +310,10 @@ tinymce.PluginManager.add("localautosave", function(editor, url) {
 							settings.callback.call(obj);
 						}
 						var btn = getButtonByName('localautosave');
-						$(btn).find('i').replaceWith('<i class="mce-ico mce-i-none" style="background: url(\'' + url + '/img/progress.gif\') no-repeat;"></i>');
-						//$(btn).find('i').replaceWith('<i class="mce-ico mce-i-refresh"></i>');
+						//$(btn).find('i').replaceWith('<i class="mce-ico mce-i-none" style="background: url(\'' + url + '/img/progress.gif\') no-repeat;"></i>');
+						$(btn).find('i').addClass('las-spin');
 						var t = setTimeout(function() {
-							$(btn).find('i').replaceWith('<i class="mce-ico mce-i-restoredraft fa-spin"></i>');
+							$(btn).find('i').removeClass('las-spin');
 						}, 2000);
 					}
 				}
@@ -397,7 +401,7 @@ tinymce.PluginManager.add("localautosave", function(editor, url) {
 
 			}
 		} catch (error) {
-			console.log(error);
+			console.error(error);
 			$busy = false;
 		}
 	}
@@ -416,7 +420,9 @@ tinymce.PluginManager.add("localautosave", function(editor, url) {
 		var settings = buttons[name], result = false, length = 0;
 
 		tinymce.each(settings, function(v, k) {
-			length++;
+			if(k == 'icon' || k == 'text' || k == 'tooltip' || k == 'type') {
+				length++;
+			}
 		});
 
 		tinymce.each(toolbarObj, function(v, k) {
@@ -426,7 +432,7 @@ tinymce.PluginManager.add("localautosave", function(editor, url) {
 			var i = 0;
 
 			tinymce.each(v.settings, function(v, k) {
-				if (settings[k] == v)
+				if ((k == 'icon' || k == 'text' || k == 'tooltip' || k == 'type') && settings[k] == v)
 					i++;
 			});
 
@@ -452,6 +458,7 @@ tinymce.PluginManager.add("localautosave", function(editor, url) {
 		style += "#localautosave_list li tt{float:right;line-height: 30px;} ";
 		style += "#localautosave_list li label{float:left;line-height: 30px;} ";
 		style += "#localautosave_list .clearfix:before, #localautosave_list .clearfix:after { display: table; content: \" \"; } #localautosave_list .clearfix:after { clear: both; }";
+		style += ".las-spin{-webkit-animation:las-spin 1s infinite linear;animation:las-spin 1s infinite linear;-webkit-animation-direction:reverse;animation-direction:reverse}@-webkit-keyframes las-spin{0%{-webkit-transform:rotate(0);transform:rotate(0)}100%{-webkit-transform:rotate(359deg);transform:rotate(359deg)}}@keyframes las-spin{0%{-webkit-transform:rotate(0);transform:rotate(0)}100%{-webkit-transform:rotate(359deg);transform:rotate(359deg)}}";
 		$('head').append("<style type='text/css'>" + style + "</style>");
 	}
 

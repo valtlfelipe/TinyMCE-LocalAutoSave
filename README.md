@@ -1,7 +1,7 @@
 Local AutoSave plugin for TinyMCE 4.x
 =============
 
-Save the TinyMCE (v4.x) content to LocalStorage* or SessionStorage* in your Browser to avoid losing your content in an page refresh, etc.
+Save the TinyMCE (v4.x) content to LocalStorage* or SessionStorage* in your Browser to avoid losing your content on a page refresh, etc.
 
 *Only if Browser supports webstorage. [See a list of Supported Browsers](http://caniuse.com/namevalue-storage).
 
@@ -14,6 +14,23 @@ Do you want to see it in action? Visit [http://valtlfelipe.github.io/TinyMCE-Loc
 
 Quick start
 -----------
+
+Install with Bower:
+```
+bower install tinymce-localautosave
+```
+And use:
+```js
+tinymce.init({
+	plugins: "localautosave",
+	toolbar1: "localautosave",
+	external_plugins : {
+		"localautosave" : "bower_components/tinymce-localautosave/localautosave/plugin.min.js"
+	}
+});
+```
+
+Or download it manually:
 
 1. [Download a copy (.zip)](https://github.com/valtlfelipe/TinyMCE-LocalAutoSave/zipball/master).
 
