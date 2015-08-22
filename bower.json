@@ -5,6 +5,7 @@
   "authors": [
     "Felipe Valtl de Mello <https://github.com/valtlfelipe>"
   ],
+  "main": "localautosave",
   "keywords": ["tinymce", "local storage"],
   "license": "MIT",
   "ignore": [
