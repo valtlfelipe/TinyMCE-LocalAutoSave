@@ -1,0 +1,22 @@
+{
+  "name": "tinymce-localautosave",
+  "version": "0.4.2",
+  "homepage": "https://github.com/valtlfelipe/TinyMCE-LocalAutoSave",
+  "authors": [
+    "Felipe Valtl de Mello <https://github.com/valtlfelipe>"
+  ],
+  "main": "localautosave",
+  "keywords": ["tinymce", "local storage"],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "description": "Save the TinyMCE (v4.x) content to LocalStorage* or SessionStorage* in your Browser to avoid losing your content in an page refresh",
+  "dependencies": {
+    "tinymce": "4.*"
+  }
+}
