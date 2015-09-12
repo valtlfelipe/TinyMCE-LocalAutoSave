@@ -47,7 +47,7 @@ tinymce.init({
 Translation
 -----------
 
-Currently available translations: `en`, `es`, `fr`, `it`, `pt_BR`, `tr`.
+Currently available translations: `de`, `en`, `es`, `fr`, `it`, `pt_BR`, `tr`.
 
 If you have translated this plugin, please create a pull request or send me a message so I can add your translation to this repository. Thanks!
 
@@ -83,6 +83,6 @@ tinymce.init({
 
 [View the License](https://github.com/valtlfelipe/TinyMCE-LocalAutoSave/blob/master/LICENSE.md) for this repository.
 
-Thank you to [Valerio Gentile](https://github.com/dvcama), [gastonsanguinetti](https://github.com/gastonsanguinetti), [Quentin Delettre](https://github.com/qdelettre) and [Burak Ozdemir](https://github.com/ozdemirburak) for contributing.
+Thank you to [Valerio Gentile](https://github.com/dvcama), [gastonsanguinetti](https://github.com/gastonsanguinetti), [Quentin Delettre](https://github.com/qdelettre), [Burak Ozdemir](https://github.com/ozdemirburak) and Hubertus Becker for contributing.
 
 [![Analytics](https://ga-beacon.appspot.com/UA-10083241-13/TinyMCE-LocalAutoSave/readme?pixel)](https://github.com/igrigorik/ga-beacon)
