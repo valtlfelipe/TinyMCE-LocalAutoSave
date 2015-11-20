@@ -47,7 +47,7 @@ tinymce.init({
 Translation
 -----------
 
-Currently available translations: `de`, `en`, `es`, `fr`, `it`, `pt_BR`, `tr`.
+Currently available translations: `de`, `en`, `es`, `fr`, `it`, `pt_BR`, `tr`, `zh_CN`.
 
 If you have translated this plugin, please create a pull request or send me a message so I can add your translation to this repository. Thanks!
 
