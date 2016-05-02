@@ -47,7 +47,7 @@ tinymce.init({
 Translation
 -----------
 
-Currently available translations: `de`, `en`, `es`, `fr`, `it`, `pt_BR`, `tr`, `zh_CN`.
+Currently available translations: `de`, `en`, `es`, `fr`, `it`, `pt_BR`, `ru`, `tr`, `zh_CN`.
 
 If you have translated this plugin, please create a pull request or send me a message so I can add your translation to this repository. Thanks!
 
@@ -62,7 +62,7 @@ You can configure this plugin using the methods listed here (those configuration
 
 3. `las_callback` => fires an function with two variables in `this` object when content is saved successfully.
 
-4. `las_nVersions` => number of versions of content you want to store (default 15, set 0 to disable) 
+4. `las_nVersions` => number of versions of content you want to store (default 15, set 0 to disable)
 
 Example:
 ```js
@@ -79,12 +79,13 @@ tinymce.init({
 });
 ```
 
+## Contributing
+
+Feel free to report issues, or even submit your pull request with new features or bug fixes. I would love to see some contribution.
+Thank you to all Contributors.
+
 ## License
 
 [View the License](https://github.com/valtlfelipe/TinyMCE-LocalAutoSave/blob/master/LICENSE.md) for this repository.
-
-## Contributors
-
-Thank you to [Valerio Gentile](https://github.com/dvcama), [gastonsanguinetti](https://github.com/gastonsanguinetti), [Quentin Delettre](https://github.com/qdelettre), [Burak Ozdemir](https://github.com/ozdemirburak), [Zhiqian MA](https://github.com/horans) and Hubertus Becker for contributing.
 
 [![Analytics](https://ga-beacon.appspot.com/UA-10083241-13/TinyMCE-LocalAutoSave/readme?pixel)](https://github.com/igrigorik/ga-beacon)
