@@ -15,6 +15,8 @@ Do you want to see it in action? Visit [http://valtlfelipe.github.io/TinyMCE-Loc
 Quick start
 -----------
 
+This plugin requires jQuery 1.10.x or newer.
+
 Install with Bower:
 ```
 bower install tinymce-localautosave
