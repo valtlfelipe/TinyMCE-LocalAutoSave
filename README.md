@@ -1,3 +1,5 @@
+# ⚠️ I'm sorry, but this project is not maintained any more and is deprecated.
+
 Local AutoSave plugin for TinyMCE 4.x
 =============
 
